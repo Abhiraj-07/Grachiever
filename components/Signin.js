@@ -76,7 +76,7 @@ const Signin = ({ form }) => {
               prefix={<MailTwoTone style={{ fontSize: "16px" }} />}
               type="email"
               placeholder="Email"
-       style={onfocus="this.style.borderColor " }
+      
               
             />
           </FormItem>

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import Axes from '../../demos/vis/showcase-sections/axes-showcase';
+import Axes from '../../../demos/vis/showcase-sections/axes-showcase';
 
 const AxesPage = () => (
   <>

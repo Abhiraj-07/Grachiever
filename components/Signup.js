@@ -32,17 +32,15 @@ const Signup = ({ form }) => {
   const [cpassword, setCPassword] = useState("");
 
   var enterOTP = () => {
-    setotpSent(true);
-    if(email == '  '  || phone == '  '   ||password == '  '   || name == '  '   ){
+    if (email == "  " || phone == "  " || password == "  " || name == "  ") {
       console.log("empty");
-    }else{
-
-      if(password === cpassword){
-
+    } else {
+      if (password === cpassword) {
+        setotpSent(true);
         console.log("done");
-      }else{
+      } else {
         console.log("password does not match");
-        // setotpSent(false)
+        setotpSent(false);
       }
     }
   };
@@ -69,8 +67,9 @@ const Signup = ({ form }) => {
 
         <Form
           layout="vertical"
-          onSubmit={(e) => {
-            e.preventDefault();
+          onFinish={(values) => {
+            // e.preventDefault();
+            console.log(values);
             // form.validateFields((err, values) => {
             //   if (!err) {
             //     Message.success("Account created. Please check your inbox!").then(
@@ -103,10 +102,6 @@ const Signup = ({ form }) => {
                 <Input
                   prefix={<SkinTwoTone style={{ fontSize: "16px" }} />}
                   placeholder="Name"
-                  defaultValue={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
                 />
               </FormItem>
 
@@ -124,10 +119,6 @@ const Signup = ({ form }) => {
                 <Input
                   prefix={<MobileTwoTone style={{ fontSize: "16px" }} />}
                   placeholder="Mobile"
-                  defaultValue={phone}
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                  }}
                 />
               </FormItem>
               <FormItem
@@ -148,10 +139,6 @@ const Signup = ({ form }) => {
                   prefix={<MailTwoTone style={{ fontSize: "16px" }} />}
                   type="email"
                   placeholder="Email"
-                  defaultValue={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
                 />
               </FormItem>
 
@@ -159,18 +146,13 @@ const Signup = ({ form }) => {
                 label="Password"
                 name="password"
                 rules={[
-                  { required: true,
-                     message: "Please input your Password!" },
+                  { required: true, message: "Please input your Password!" },
                 ]}
               >
                 <Input
                   prefix={<EyeTwoTone style={{ fontSize: "16px" }} />}
                   type="password"
                   placeholder="Password"
-                  defaultValue={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
                 />
               </FormItem>
 
@@ -191,47 +173,33 @@ const Signup = ({ form }) => {
                 //     },
                 //   }),
                 // ]}
-               
 
-                
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm your password!",
-                  },
-                  {
-                    validator: (rule, value, callback) => {
-                      if (value && form.getFieldValue("cpassword") !== form.getFieldValue("password")) {
-                        callback("Passwords don't match!");
-                      } else {
-                        callback();
-                      }
-                    },
-                  },
-                ]}
-
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: "Please confirm your password!",
+                //   },
+                //   {
+                //     validator: (rule, value, callback) => {
+                //       if (value && form.getFieldValue("cpassword") !== form.getFieldValue("password")) {
+                //         callback("Passwords don't match!");
+                //       } else {
+                //         callback();
+                //       }
+                //     },
+                //   },
+                // ]}
               >
                 <Input
                   prefix={<EyeTwoTone style={{ fontSize: "16px" }} />}
                   type="password"
                   placeholder="Confirm password"
-                  defaultValue={cpassword}
-                  onChange={(e) => {
-                    setCPassword(e.target.value);
-                  }}
                 />
               </FormItem>
             </>
           ) : (
             <>
-              <FormItem
-                label="Enter OTP"
-                name="otp"
-
-              
-
-
-              >
+              <FormItem label="Enter OTP" name="otp">
                 <Input
                   prefix={<EyeTwoTone style={{ fontSize: "16px" }} />}
                   type="password"
@@ -243,7 +211,7 @@ const Signup = ({ form }) => {
 
           <FormItem>
             {!otpSent ? (
-              <Button type="primary" block className="mt-3" onClick={enterOTP} >
+              <Button type="primary" block onClick={enterOTP} className="mt-3">
                 Get OTP
               </Button>
             ) : (
