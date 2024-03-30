@@ -10,18 +10,22 @@ import {
   Popconfirm,
   Row,
   Switch,
-  Tooltip
-} from 'antd';
-import { FolderTwoTone, PlaySquareTwoTone, PushpinTwoTone } from '@ant-design/icons';
-import { capitalize, lowercase } from '../lib/helpers';
-import { useEffect, useState } from 'react';
+  Tooltip,
+} from "antd";
+import {
+  FolderTwoTone,
+  PlaySquareTwoTone,
+  PushpinTwoTone,
+} from "@ant-design/icons";
+import { capitalize, lowercase } from "../lib/helpers";
+import { useEffect, useState } from "react";
 
-import DashHeader from './styles/Header';
-import Inner from './styles/Sidebar';
-import Link from 'next/link';
-import Routes from '../lib/routes';
-import { useAppState } from './shared/AppProvider';
-import { withRouter } from 'next/router';
+import DashHeader from "./styles/Header";
+import Inner from "./styles/Sidebar";
+import Link from "next/link";
+import Routes from "../lib/routes";
+import { useAppState } from "./shared/AppProvider";
+import { withRouter } from "next/router";
 
 const { SubMenu } = Menu;
 const { Header, Sider } = Layout;
@@ -30,7 +34,7 @@ let rootSubMenuKeys = [];
 
 const getKey = (name, index) => {
   const string = `${name}-${index}`;
-  let key = string.replace(' ', '-');
+  let key = string.replace(" ", "-");
   return key.charAt(0).toLowerCase() + key.slice(1);
 };
 
@@ -47,14 +51,19 @@ const SidebarContent = ({
   sidebarMode,
   sidebarIcons,
   collapsed,
-  router
+  router,
 }) => {
   const [state, dispatch] = useAppState();
   const [openKeys, setOpenKeys] = useState([]);
   const [appRoutes] = useState(Routes);
   const { pathname } = router;
 
-  const badgeTemplate = badge => <Badge count={badge.value} className={`${state.direction === 'rtl' ? 'left' : 'right'}`} />;
+  const badgeTemplate = (badge) => (
+    <Badge
+      count={badge.value}
+      className={`${state.direction === "rtl" ? "left" : "right"}`}
+    />
+  );
 
   useEffect(() => {
     appRoutes.forEach((route, index) => {
@@ -66,7 +75,7 @@ const SidebarContent = ({
     });
   }, []);
 
-  const onOpenChange = openKeys => {
+  const onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.slice(-1);
     if (rootSubMenuKeys.indexOf(latestOpenKey) === -1) {
       setOpenKeys([...latestOpenKey]);
@@ -80,7 +89,7 @@ const SidebarContent = ({
       <Menu
         theme={sidebarTheme}
         className="border-0 scroll-y sidebar"
-        style={{ flex: 1, height: '100%' }}
+        style={{ flex: 1, height: "100%" }}
         mode={sidebarMode}
         openKeys={openKeys}
         onOpenChange={onOpenChange}
@@ -92,11 +101,11 @@ const SidebarContent = ({
               <Menu.Item
                 key={getKey(route.name, index)}
                 className={
-                  pathname === route.path ? 'ant-menu-item-selected' : ''
+                  pathname === route.path ? "ant-menu-item-selected" : ""
                 }
                 onClick={() => {
                   setOpenKeys([getKey(route.name, index)]);
-                  if (state.mobile) dispatch({ type: 'mobileDrawer' });
+                  if (state.mobile) dispatch({ type: "mobileDrawer" });
                 }}
                 icon={sidebarIcons && route.icon}
               >
@@ -114,7 +123,8 @@ const SidebarContent = ({
               <SubMenu
                 key={getKey(route.name, index)}
                 icon={sidebarIcons && route.icon}
-                title={<>
+                title={
+                  <>
                     <span>{capitalize(route.name)}</span>
                     {route.badge && badgeTemplate(route.badge)}
                   </>
@@ -124,13 +134,13 @@ const SidebarContent = ({
                   <Menu.Item
                     key={getKey(subitem.name, index)}
                     className={
-                      pathname === subitem.path ? 'ant-menu-item-selected' : ''
+                      pathname === subitem.path ? "ant-menu-item-selected" : ""
                     }
                     onClick={() => {
-                      if (state.mobile) dispatch({ type: 'mobileDrawer' });
+                      if (state.mobile) dispatch({ type: "mobileDrawer" });
                     }}
                   >
-                    <Link href={`${subitem.path ? subitem.path : ''}`}>
+                    <Link href={`${subitem.path ? subitem.path : ""}`}>
                       <a>
                         <span className="mr-auto">
                           {capitalize(subitem.name)}
@@ -148,7 +158,7 @@ const SidebarContent = ({
       <Divider
         className={`m-0`}
         style={{
-          display: `${sidebarTheme === 'dark' ? 'none' : ''}`
+          display: `${sidebarTheme === "dark" ? "none" : ""}`,
         }}
       />
       <div className={`py-3 px-4 bg-${sidebarTheme}`}>
@@ -159,15 +169,11 @@ const SidebarContent = ({
                 count={6}
                 overflowCount={5}
                 style={{
-                  color: 'rgb(245, 106, 0)',
-                  backgroundColor: 'rgb(253, 227, 207)'
+                  color: "rgb(245, 106, 0)",
+                  backgroundColor: "rgb(253, 227, 207)",
                 }}
               >
-                <Avatar
-                  shape="circle"
-                  size={40}
-                  src="/images/avatar.jpg"
-                />
+                <Avatar shape="circle" size={40} src="/images/avatar.jpg" />
               </Badge>
             </span>
           </Dropdown>
@@ -177,11 +183,11 @@ const SidebarContent = ({
               <Link href="//one-readme.fusepx.com">
                 <a
                   className={`px-3 ${
-                    sidebarTheme === 'dark' ? 'text-white' : 'text-body'
+                    sidebarTheme === "dark" ? "text-white" : "text-body"
                   }`}
                 >
                   <Tooltip title="Help">
-                    <FolderTwoTone style={{ fontSize: '20px' }} />
+                    <FolderTwoTone style={{ fontSize: "20px" }} />
                   </Tooltip>
                 </a>
               </Link>
@@ -189,16 +195,16 @@ const SidebarContent = ({
               <Popconfirm
                 placement="top"
                 title="Are you sure you want to sign out?"
-                onConfirm={() => router.push('/signin')}
+                onConfirm={() => router.push("/signin")}
                 okText="Yes"
                 cancelText="Cancel"
               >
                 <a
                   className={`px-3 ${
-                    sidebarTheme === 'dark' ? 'text-white' : 'text-body'
+                    sidebarTheme === "dark" ? "text-white" : "text-body"
                   }`}
                 >
-                  <PushpinTwoTone style={{ fontSize: '16px' }} />
+                  <PushpinTwoTone style={{ fontSize: "16px" }} />
                 </a>
               </Popconfirm>
             </>
@@ -226,8 +232,8 @@ const SidebarContent = ({
           <Drawer
             closable={false}
             width={220}
-            placement={`${state.direction === 'rtl' ? 'right' : 'left'}`}
-            onClose={() => dispatch({ type: 'mobileDrawer' })}
+            placement={`${state.direction === "rtl" ? "right" : "left"}`}
+            onClose={() => dispatch({ type: "mobileDrawer" })}
             visible={state.mobileDrawer}
             className="chat-drawer"
           >
@@ -246,8 +252,10 @@ const SidebarContent = ({
                   <Header>
                     <Link href="/">
                       <a className="brand mx-3">
-                        <PlaySquareTwoTone style={{fontSize: '20px'}} />
-                        <strong className="text-black pl-2">{state.name}</strong>
+                        <PlaySquareTwoTone style={{ fontSize: "20px" }} />
+                        <strong className="text-black pl-2">
+                          {state.name}
+                        </strong>
                       </a>
                     </Link>
                   </Header>
@@ -255,14 +263,15 @@ const SidebarContent = ({
                 {menu}
               </div>
             </Inner>
-          </Drawer>)}
+          </Drawer>
+        )}
 
         <Drawer
           title="Settings"
-          placement={`${state.direction === 'rtl' ? 'left' : 'right'}`}
+          placement={`${state.direction === "rtl" ? "left" : "right"}`}
           closable={true}
           width={300}
-          onClose={() => dispatch({ type: 'options' })}
+          onClose={() => dispatch({ type: "options" })}
           visible={state.optionDrawer}
         >
           <List.Item
@@ -270,8 +279,8 @@ const SidebarContent = ({
               <Switch
                 size="small"
                 checked={!!state.boxed}
-                onChange={checked => dispatch({ type: 'boxed' })}
-              />
+                onChange={(checked) => dispatch({ type: "boxed" })}
+              />,
             ]}
           >
             <span
@@ -291,8 +300,8 @@ const SidebarContent = ({
                 size="small"
                 checked={!!state.darkSidebar}
                 disabled={state.weakColor}
-                onChange={checked => dispatch({ type: 'sidebarTheme' })}
-              />
+                onChange={(checked) => dispatch({ type: "sidebarTheme" })}
+              />,
             ]}
           >
             <span
@@ -312,8 +321,8 @@ const SidebarContent = ({
                 size="small"
                 checked={!!state.sidebarPopup}
                 disabled={state.collapsed}
-                onChange={checked => dispatch({ type: 'sidebarPopup' })}
-              />
+                onChange={(checked) => dispatch({ type: "sidebarPopup" })}
+              />,
             ]}
           >
             <span
@@ -333,8 +342,8 @@ const SidebarContent = ({
                 size="small"
                 checked={!!state.sidebarIcons}
                 disabled={state.collapsed}
-                onChange={checked => dispatch({ type: 'sidebarIcons' })}
-              />
+                onChange={(checked) => dispatch({ type: "sidebarIcons" })}
+              />,
             ]}
           >
             <span
@@ -353,8 +362,8 @@ const SidebarContent = ({
               <Switch
                 size="small"
                 checked={!!state.collapsed}
-                onChange={checked => dispatch({ type: 'collapse' })}
-              />
+                onChange={(checked) => dispatch({ type: "collapse" })}
+              />,
             ]}
           >
             <span
@@ -373,8 +382,10 @@ const SidebarContent = ({
               <Switch
                 size="small"
                 checked={!!state.weakColor}
-                onChange={checked => dispatch({ type: 'weak', value: checked })}
-              />
+                onChange={(checked) =>
+                  dispatch({ type: "weak", value: checked })
+                }
+              />,
             ]}
           >
             <span
@@ -392,9 +403,11 @@ const SidebarContent = ({
             actions={[
               <Switch
                 size="small"
-                checked={!!state.direction === 'rtl'}
-                onChange={checked => dispatch({ type: 'direction', value: checked })}
-              />
+                checked={!!state.direction === "rtl"}
+                onChange={(checked) =>
+                  dispatch({ type: "direction", value: checked })
+                }
+              />,
             ]}
           >
             <span

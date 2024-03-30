@@ -78,7 +78,7 @@ const MainHeader = () => {
           {!state.mobile && (
             <Menu.Item>
               <Link href="/buyedtp">
-                <a>Buyed TP</a>
+                <a> Training Program</a>
               </Link>
             </Menu.Item>
           )}
@@ -86,7 +86,7 @@ const MainHeader = () => {
           {!state.mobile && (
             <Menu.Item>
               <Link href="/buyedproject">
-                <a>buyed project</a>
+                <a> Project</a>
               </Link>
             </Menu.Item>
           )}

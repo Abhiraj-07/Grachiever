@@ -1,4 +1,4 @@
-import Forgot from '../components/buyedproject';
+import Forgot from '../components/buyedProjects/buyedproject';
 
 const buyedproject = () => <Forgot />;
 
